@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import com.laioffer.tinnews.databinding.FragmentSearchBinding;
 import com.laioffer.tinnews.repository.NewsRepository;
 import com.laioffer.tinnews.repository.NewsViewModelFactory;
@@ -42,11 +44,26 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        SearchNewsAdapter newsAdapter = new SearchNewsAdapter();
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
+        binding.newsResultsRecyclerView.setLayoutManager(gridLayoutManager);
+        binding.newsResultsRecyclerView.setAdapter(newsAdapter);
+
         binding.newsSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (!query.isEmpty()) {
-                    viewModel.setSearchInput(query);
+                    viewModel
+                            .searchNews()
+                            .observe(
+                                    getViewLifecycleOwner(),
+                                    newsResponse -> {
+                                        if (newsResponse != null) {
+                                            Log.d("SearchFragment", newsResponse.toString());
+                                            newsAdapter.setArticles(newsResponse.articles);
+                                        }
+                                    });
+
                 }
                 binding.newsSearchView.clearFocus();
                 return true;
