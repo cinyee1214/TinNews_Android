@@ -49,21 +49,28 @@ public class SearchFragment extends Fragment {
         binding.newsResultsRecyclerView.setLayoutManager(gridLayoutManager);
         binding.newsResultsRecyclerView.setAdapter(newsAdapter);
 
+        NewsRepository repository = new NewsRepository(getContext());
+        viewModel = new ViewModelProvider(this, new NewsViewModelFactory(repository))
+                .get(SearchViewModel.class);
+
+        viewModel
+                .searchNews()
+                .observe(
+                        getViewLifecycleOwner(),
+                        newsResponse -> {
+                            if (newsResponse != null) {
+                                Log.d("SearchFragment", newsResponse.toString());
+                                newsAdapter.setArticles(newsResponse.articles);
+                            }
+                        });
+
+
+
         binding.newsSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (!query.isEmpty()) {
-                    viewModel
-                            .searchNews()
-                            .observe(
-                                    getViewLifecycleOwner(),
-                                    newsResponse -> {
-                                        if (newsResponse != null) {
-                                            Log.d("SearchFragment", newsResponse.toString());
-                                            newsAdapter.setArticles(newsResponse.articles);
-                                        }
-                                    });
-
+                    viewModel.setSearchInput(query);
                 }
                 binding.newsSearchView.clearFocus();
                 return true;
@@ -74,6 +81,5 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
-
     }
 }
