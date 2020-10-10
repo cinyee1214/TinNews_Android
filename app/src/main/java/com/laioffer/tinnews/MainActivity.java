@@ -31,9 +31,8 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(navView, navController);
         NavigationUI.setupActionBarWithNavController(this, navController);
-        // The network request test code
+//        // The network request test code
 //        NewsApi api = RetrofitClient.newInstance(this).create(NewsApi.class);
-//
 //        api.getTopHeadlines("US").enqueue(new Callback<NewsResponse>() {
 //            @Override
 //            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 //                Log.d("getTopHeadlines", t.toString());
 //            }
 //        });
-
     }
 
     @Override
