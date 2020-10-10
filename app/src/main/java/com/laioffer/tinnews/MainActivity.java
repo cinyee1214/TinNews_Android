@@ -18,7 +18,7 @@ import com.laioffer.tinnews.network.RetrofitClient;
 
 public class MainActivity extends AppCompatActivity {
 
-     private NavController navController;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
