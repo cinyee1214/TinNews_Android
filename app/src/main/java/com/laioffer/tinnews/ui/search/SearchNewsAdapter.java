@@ -49,7 +49,6 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
         return articles.size();
     }
 
-
     // 3. SearchNewsViewHolder:
     public static class SearchNewsViewHolder extends RecyclerView.ViewHolder {
 
