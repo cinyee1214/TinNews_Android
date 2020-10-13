@@ -97,6 +97,12 @@ public class NewsRepository {
         }
     }
 
+    public LiveData<Boolean> favoriteArticle(Article article) {
+        MutableLiveData<Boolean> resultLiveData = new MutableLiveData<>();
+        new FavoriteAsyncTask(database, resultLiveData).execute(article);
+        return resultLiveData;
+    }
+
 }
 
 
