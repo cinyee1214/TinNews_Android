@@ -6,5 +6,7 @@
     <string name="title_search">Search</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_details">Details</string>
+    <string name='saved_item_author'>Author:</string>
+    <string name="saved_item_description">Description:</string>
     <!-- Existing items ... -->
 </resources>
